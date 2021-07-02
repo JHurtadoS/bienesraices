@@ -1,0 +1,71 @@
+.no-webp .inicio {
+    background-image: url(../img/header.jpg);
+}
+
+.webp .inicio {
+    background-image: url(../img/header.webp);
+}
+
+header {
+    background-color: $grisOscuro;
+    .barra {
+        .logo {
+            width: 35rem;
+        }
+    }
+    h1 {
+        margin: 0 0;
+    }
+    &.inicio {
+        background-position: center center;
+        background-size: cover;
+        min-height: 60rem;
+        .contenido-header {
+            height: 70rem;
+        }
+    }
+}
+
+.contenido-header {
+    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.contenedor-titulo-header {
+    display: flex;
+    height: 100%;
+    align-items: flex-end;
+    padding: 0 0 4.5rem 3.5rem;
+    span {
+        display: block;
+    }
+    @include telefono {
+        padding: 0 0 0 0;
+    }
+    @include tablet {
+        padding: 0 0 0 0;
+        align-items: center;
+    }
+    @include tablet {
+        align-content: center;
+        span {
+            display: inline-block;
+        }
+    }
+    h1 {
+        width: 100%;
+        color: $blanco;
+        font-weight: $bold;
+        text-align: left;
+        @include telefono {
+            text-align: center;
+        }
+        font-size: 3.6rem;
+        @include tablet {
+            font-size: 3.5rem;
+            text-align: center;
+        }
+    }
+}

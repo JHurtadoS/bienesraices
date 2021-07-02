@@ -1,0 +1,114 @@
+.propiedades-1 {
+    h2 {
+        font-weight: $black;
+        font-size: 4rem;
+        margin: 0;
+        margin-bottom: 1.5rem;
+    }
+}
+
+.contenedor-propiedades {
+    .propiedad {
+        margin-bottom: 2rem;
+        @include desktop {
+            margin-bottom: 0;
+        }
+        border: 2px;
+        border-style: solid;
+        border-color: $gris;
+        .boton-propiedad {
+            display: flex;
+            a {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    }
+    display: block;
+    width: 85%;
+    margin: 0 auto;
+    .contenedor-info-propiedad {
+        margin: 0 1rem;
+        .precio {
+            color: $verde;
+            font-weight: $bold;
+        }
+        h3 {
+            display: block;
+            text-align: center;
+            font-weight: $bold;
+            margin-bottom: 0;
+            margin-top: 1rem;
+        }
+        p {
+            margin-top: 0.5rem;
+        }
+    }
+    @include desktop {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 3rem;
+        margin: auto;
+    }
+    .contenedor-iconos-propiedad {
+        margin: 0 auto;
+        max-width: 27rem;
+        max-height: 10rem;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 2.5rem;
+        align-items: center;
+        padding: 0 3rem;
+        .contenedor-icono {
+            min-height: 73px;
+            display: grid;
+            place-content: center;
+            place-items: center;
+            p {
+                margin: 0;
+                text-align: center;
+            }
+        }
+    }
+    .contenedor-boton {
+        margin-top: 1.5rem;
+        display: flex;
+        .boton {
+            width: 100%;
+            background-color: $amarillo;
+            padding: 5px;
+        }
+        padding: 2rem 0;
+        padding: 2rem;
+        @include desktop {
+            padding: 1.5rem;
+            padding: 1rem;
+        }
+    }
+}
+
+.propiedades-1 {
+    .contenedor-verTodasgrid {
+        grid-column-start: -2;
+        grid-column-end: -1;
+        width: 100%;
+        height: 100%;
+        .boton-verTodas {
+            display: flex;
+            a {
+                text-align: center;
+                font-size: 2.2rem;
+                width: 100%;
+            }
+            margin: 0 auto;
+            margin-top: 1.5rem;
+            margin-right: 0;
+            width: 25rem;
+            background-color: $verde;
+            @include telefono {
+                margin: 0 auto;
+                margin-top: 2rem;
+            }
+        }
+    }
+}

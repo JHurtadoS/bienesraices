@@ -1,0 +1,76 @@
+.seccion {
+    margin-top: 4.5rem;
+    margin-bottom: 4.5rem;
+}
+
+.contenido-centrado {
+    max-width: 800px;
+}
+
+.boton {
+    text-align: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    &:hover {
+        cursor: pointer;
+    }
+    a {
+        margin: 0;
+        text-align: center;
+        font-size: 2.2rem;
+        color: black;
+    }
+}
+
+.boton-verde {
+    padding: 0.5rem 5rem;
+    margin: 2rem;
+    margin-left: 1rem;
+    background-color: $verde;
+    border: none;
+    border-style: none;
+    border-radius: 5px;
+    color: $blanco;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.boton-rojo {
+    background-color: $rojo;
+}
+
+.boton-amarillo {
+    background-color: $amarillo;
+}
+
+.boton-verTodas {
+    background-color: $verde;
+}
+
+.boton-formulario {
+    padding: 1rem 0;
+}
+
+.formulario {
+    .desaperecer {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s 2s, opacity 2s linear;
+    }
+    .alerta {
+        display: grid;
+        margin-left: 1rem;
+        p {
+            width: 50rem;
+            padding: 2.5rem 1rem;
+            background-color: $amarillo;
+        }
+        &.sucess {
+            P {
+                text-align: center;
+                background-color: $verde;
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+.footer {
+    display: block;
+    background-color: $grisOscuro;
+    margin-bottom: 0;
+    .contenedor-footer {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        @include tablet {
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+        }
+        .navegacion {
+            justify-content: space-between;
+            @include tablet {
+                width: 100%;
+            }
+            @include telefono {
+                justify-content: center;
+                width: 90%;
+            }
+            a {
+                width: auto;
+                margin: 0 1rem;
+            }
+            p {
+                color: $blanco;
+            }
+        }
+    }
+}

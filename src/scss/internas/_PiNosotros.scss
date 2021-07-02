@@ -1,0 +1,14 @@
+.contenido-nosotros {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 2rem;
+    place-items: center;
+    @include telefono {
+        //display: block;
+    }
+    .contenedor-texto-nosostros {
+        h4 {
+            margin-top: 0;
+        }
+    }
+}

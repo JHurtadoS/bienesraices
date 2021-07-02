@@ -1,0 +1,196 @@
+.navegacion {
+    display: flex;
+    align-items: center;
+    a {
+        width: 100%;
+        color: $blanco;
+        text-decoration: none;
+        font-size: 2.2rem;
+        display: block;
+        text-align: center;
+    }
+}
+
+.derecha {
+    display: grid;
+    grid-template-columns: 3.6rem auto;
+    column-gap: 2rem;
+    width: 50%;
+    .navegacion {
+        grid-column: 2;
+    }
+    @include telefono {
+        display: block;
+    }
+    @include tablet {
+        display: block
+    }
+}
+
+.barra {
+    .derecha {
+        .contenedor-darkmode {
+            width: 3.6rem;
+            filter: invert(100%);
+            &:hover {
+                cursor: pointer;
+            }
+            margin: 1rem auto;
+            @include desktop {
+                margin: 0 0;
+            }
+        }
+    }
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    @include tablet {
+        flex-direction: column;
+        a {
+            width: 100%;
+            img {
+                margin: 0 auto;
+            }
+        }
+        justify-content: center;
+        align-items: center;
+    }
+    .derecha {
+        width: 50%;
+        @include telefono {
+            width: 100%;
+        }
+        .navegacion {
+            @include tablet {
+                padding: 1rem 0;
+                padding-bottom: 2rem;
+                flex-direction: column;
+                a {
+                    margin-top: 2rem;
+                }
+            }
+        }
+    }
+    @include tablet {
+        .hover-nav nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hover-nav a {
+            position: relative;
+            z-index: 0;
+        }
+        .hover-nav a:before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-color: #f6c126;
+            z-index: -1;
+            transform: scale(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        .hover-nav a:hover:before,
+        .hover-nav a:focus:before {
+            transform: scale(1);
+        }
+    }
+    @include telefono {
+        .hover-nav nav {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hover-nav a {
+            position: relative;
+            z-index: 0;
+        }
+        .hover-nav a:before {
+            position: absolute;
+            content: "";
+            width: 100%;
+            height: 100%;
+            bottom: 0;
+            left: 0;
+            background-color: #f6c126;
+            z-index: -1;
+            transform: scale(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        .hover-nav a:hover:before,
+        .hover-nav a:focus:before {
+            transform: scale(1);
+        }
+    }
+}
+
+.mobile-menu {
+    display: none;
+}
+
+@include tablet {
+    .mobile-menu {
+        display: flex;
+        margin: 3rem 0;
+        margin: 2rem auto;
+        img {
+            &:hover {
+                cursor: pointer;
+            }
+            height: 4rem;
+            width: 4rem;
+        }
+    }
+    .derecha {
+        .navegacion {
+            visibility: hidden;
+            opacity: 0;
+        }
+        .navegacion-responsive {
+            visibility: visible;
+            opacity: 1;
+            transition: visibility .3s ease-in-out, opacity 1s linear;
+        }
+    }
+}
+
+@include telefono {
+    .mobile-menu {
+        margin: 3rem 0;
+        display: flex;
+        margin: 2rem auto;
+        img {
+            &:hover {
+                cursor: pointer;
+            }
+            height: 4rem;
+            width: 4rem;
+        }
+    }
+    .derecha {
+        .navegacion {
+            visibility: hidden;
+            opacity: 0;
+        }
+        .navegacion-responsive {
+            visibility: visible;
+            opacity: 1;
+            transition: visibility .3s ease-in-out, opacity 1s linear;
+        }
+    }
+}
