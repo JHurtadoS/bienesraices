@@ -37,7 +37,8 @@
 }
 
 .boton-rojo {
-    background-color: $rojo;
+    background-color: $verde;
+    color: $blanco;
 }
 
 .boton-amarillo {
@@ -73,4 +74,8 @@
             }
         }
     }
+}
+
+input#eliminar {
+    color: $blanco;
 }

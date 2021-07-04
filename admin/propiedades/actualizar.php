@@ -109,14 +109,11 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         try{
             $resultado = mysqli_query($db,$query);
                 if($resultado){
-                    //echo "actualizado";
                     $insercionCorrecta=true;
                 }
                 else{
                     $errorbaseDeDatos=true;
                     $errores[]="actualizacion incorrecta error interno";
-                    //echo "actualizacion incorrecta";  
-                    //echo mysqli_errno($db);
                 }        
 
         }catch (\Throwable $th) {

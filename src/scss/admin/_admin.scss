@@ -18,8 +18,13 @@
             grid-template-columns: repeat(5, 1fr);
             column-gap: 2rem;
             .acciones {
+                .eliminar {
+                    color: $blanco;
+                    width: 100%;
+                }
                 .boton {
-                    margin: 1rem 0;
+                    display: inline-flex;
+                    margin: 2rem 0;
                 }
             }
             p {
@@ -42,4 +47,8 @@
 
 .imagen-small {
     width: 20rem;
+}
+
+#eliminar {
+    color: $blanco;
 }

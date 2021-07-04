@@ -14,6 +14,7 @@ $consulta = "SELECT * FROM vendedores";
         //printf("Select returned %d rows.\n", mysqli_num_rows($resultadoConsulta));
     }catch (\Throwable $th) {
         echo $th;
+        echo "hola mundo";
     }
    
   
@@ -26,7 +27,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
 
     $datos = $_POST;
     $datosPrevios = $datos;
-    var_dump($datos);
     extract($datos);
 
     foreach ($datos as $value) {
@@ -101,16 +101,14 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     creado,
     vendedorId)
     VALUES('$titulo','$precio','$nombreImagen','$descripcion','$habitaciones','$wc','$estacionamientos','$fecha','$vendedorId')";
-    //echo $query;
+
         if($db!=null & empty($errores)){
             try{
                 $resultado = mysqli_query($db,$query);
                 if($resultado){
-                    echo "insertado";
                     $insercionCorrecta=true;
                 }
                 else{
-                    echo "insercion incorrecta";  
                     echo mysqli_errno($db);
                 }        
 
