@@ -223,5 +223,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
  
 
 <?php
-incluirTemplate('footer'); 
+    incluirTemplate('footer'); 
+    mysqli_close($db);
 ?>

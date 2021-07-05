@@ -2,6 +2,17 @@
     declare(strict_types=1);
     require  'inc/funciones.php';
     incluirTemplate('header',$inicio = true);
+
+    require 'inc/conf/database.php';
+    $inicio = false;
+    try{
+        $db = conectarDb();
+    }catch (\Throwable $th) {
+        echo $th;
+    }
+    $consultaPropiedades = "SELECT*FROM propiedades";
+    $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+
 ?>
 
     <main class="contenedor seccion">
@@ -39,108 +50,9 @@
         <div class="propiedades-1">
             <h2>Casas y Depas en Venta</h2>
             <div class="contenedor-propiedades">
-
-
-                <div class="propiedad">
-                    <div class="comtenedor-imagen-propiedad">
-                        <img src="build/img/anuncio1.webp" alt="">
-                    </div>
-                    <div class="contenedor-info-propiedad">
-                        <h3>Casa en el lago</h3>
-                        <p>Casa en el lago con excelente vista acabados de lujo a un excelente precio</p>
-                        <p class="precio">$3.000.000</p>
-                    </div>
-
-                    <div class="contenedor-iconos-propiedad">
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_wc.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_estacionamiento.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_dormitorio.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-                    </div>
-                    <div class="contenedor-boton">
-                        <div class="boton boton-propiedad">
-                            <a href="anuncio.php">Ver Propiedad</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="propiedad">
-                    <div class="comtenedor-imagen-propiedad">
-                        <img src="build/img/anuncio2.webp" alt="">
-                    </div>
-                    <div class="contenedor-info-propiedad">
-                        <h3>Casa en el lago</h3>
-                        <p>Casa en el lago con excelente vista acabados de lujo a un excelente precio</p>
-                        <p class="precio">$3.000.000</p>
-                    </div>
-
-                    <div class="contenedor-iconos-propiedad">
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_wc.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_estacionamiento.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_dormitorio.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-                    </div>
-                    <div class="contenedor-boton">
-                        <div class="boton boton-propiedad">
-                            <a href="anuncio.php">Ver Propiedad</a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="propiedad">
-                    <div class="comtenedor-imagen-propiedad">
-                        <img src="build/img/anuncio3.webp" alt="">
-                    </div>
-                    <div class="contenedor-info-propiedad">
-                        <h3>Casa en el lago</h3>
-                        <p>Casa en el lago con excelente vista acabados de lujo a un excelente precio</p>
-                        <p class="precio">$3.000.000</p>
-                    </div>
-
-                    <div class="contenedor-iconos-propiedad">
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_wc.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_estacionamiento.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-
-                        <div class="contenedor-icono">
-                            <img src="build/img/icono_dormitorio.svg" alt="" srcset="">
-                            <p class="cantidad-icono">1</p>
-                        </div>
-                    </div>
-                    <div class="contenedor-boton">
-                        <div class="boton boton-propiedad">
-                            <a href="anuncio.php">Ver Propiedad</a>
-                        </div>
-                    </div>
-
-                </div>
+                <?php $i=0; while($row = mysqli_fetch_assoc($resConsultaPropiedades)): $i++; if($i<=3): ?>
+                    <?php inlcuirPropiedad($row['titulo'],$row['nombreImagen'],$row['precio'],$row['descripcion'],$row['wc'],$row['estacionamientos'],$row['habitaciones'],$row['id']); ?>
+                 <?php endif; endwhile; ?>   
 
                 <div class="contenedor-verTodasgrid">
                     <div class="boton boton-verTodas">
@@ -151,7 +63,7 @@
             </div>
 
         </div>
-
+                    
         </div>
 
     </main>
@@ -215,7 +127,7 @@
     </div>
 
    
-    <?php
+<?php
     incluirTemplate('footer');
-
+    mysqli_close($db);
 ?>

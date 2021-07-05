@@ -85,5 +85,6 @@
  
 
 <?php
-incluirTemplate('footer'); 
+    incluirTemplate('footer'); 
+    mysqli_close($db);
 ?>
