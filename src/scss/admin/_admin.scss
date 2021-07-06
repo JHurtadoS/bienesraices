@@ -50,5 +50,10 @@
 }
 
 .InicioSesion {
-    width: 50%;
+    &.formulario {
+        width: 65%;
+    }
+    fieldset {
+        width: 40rem;
+    }
 }

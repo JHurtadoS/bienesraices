@@ -1,7 +1,9 @@
 
 <?php
+
     $idBorrar;
     require  '../inc/funciones.php';
+    analizarSesion();
     require '..//inc/conf/database.php';
     $inicio = false;
     try{

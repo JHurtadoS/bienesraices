@@ -15,3 +15,14 @@ function inlcuirPropiedad( $nombre,$imagen,$precio,$descricion,$baños,$estacion
 function inlcuirAnuncio( $nombre,$imagen,$precio,$descricion,$baños,$estacionamientos,$habitaciones,$id){
     include TEMPLATES_URL."/AnuncioUnitario.php"; 
 }
+
+function analizarSesion(){
+    
+    session_start();
+    $auth = $_SESSION['login'];
+
+    if(!$auth){
+        header('Location: /');
+    }
+
+}

@@ -1,11 +1,13 @@
 
 <?php
 $errores = [];
-
+require  '../../inc/funciones.php';
 $row;
 $fecha=date('Y/m/d');
 require '../../inc/conf/database.php';
 
+
+analizarSesion();
 $consulta = "SELECT * FROM vendedores";
 try{
     $db = conectarDb();
@@ -125,7 +127,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     }
 
 
-    require  '../../inc/funciones.php';
+
     $inicio = false;
     incluirTemplate('header',$inicio);
 ?>
