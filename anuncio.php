@@ -4,14 +4,24 @@
     $inicio = false;
     incluirTemplate('header');
     $id = $_GET['id'];
+    $id = filter_var($id,FILTER_VALIDATE_INT);
     require 'inc/conf/database.php';
     try{
         $db = conectarDb();
     }catch (\Throwable $th) {
         echo $th;
     }
-    $consultaPropiedades = "SELECT*FROM propiedades WHERE id=$id";
-    $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+    if($id){
+        $consultaPropiedades = "SELECT*FROM propiedades WHERE id=$id";
+        $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+        var_dump($resConsultaPropiedades);
+    }else{
+        header('Location:/');
+    }
+    
+    if(!$resConsultaPropiedades->num_rows){
+        header('Location:/');
+    }
 ?>
 
     <main class="contenedor seccion anuncio">

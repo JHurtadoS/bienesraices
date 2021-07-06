@@ -8,6 +8,7 @@
 }
 
 .boton {
+    border: none;
     text-align: center;
     padding: 1rem;
     border-radius: 0.5rem;
@@ -43,6 +44,13 @@
 
 .boton-amarillo {
     background-color: $amarillo;
+    font-size: 2.2rem;
+}
+
+.acciones {
+    .boton-amarillo {
+        width: 100%;
+    }
 }
 
 .boton-verTodas {
