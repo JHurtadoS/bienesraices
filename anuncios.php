@@ -6,7 +6,7 @@
     $inicio = false;
     incluirTemplate('header',$inicio);
 
-    require 'inc/conf/database.php';
+    require 'inc/conf/database.php' ;
     $inicio = false;
     try{
         $db = conectarDb();
