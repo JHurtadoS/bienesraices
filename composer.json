@@ -1,0 +1,14 @@
+{
+    "name": "bienes-raices/juan-hurtado",
+    "description": "Proyecto bienes raices",
+    "authors": [{
+        "name": "JHurtadoS",
+        "email": "juaneshs2014@gmail.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "App\\": "./clases"
+        }
+    }
+}

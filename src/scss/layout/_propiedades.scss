@@ -9,6 +9,12 @@
 
 .contenedor-propiedades {
     .propiedad {
+        .comtenedor-imagen-propiedad {
+            min-height: 12.5rem;
+            img {
+                min-height: 20rem;
+            }
+        }
         margin-bottom: 2rem;
         @include desktop {
             margin-bottom: 0;

@@ -1,16 +1,16 @@
 
 <?php
 $errores = [];
-require  '../../inc/funciones.php';
+require  '../../inc/app.php';
 $row;
 $fecha=date('Y/m/d');
-require '../../inc/conf/database.php';
+
 
 
 analizarSesion();
 $consulta = "SELECT * FROM vendedores";
 try{
-    $db = conectarDb();
+
     $resultadoConsulta = mysqli_query($db,$consulta);
 
 }catch (\Throwable $th) {

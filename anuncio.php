@@ -1,20 +1,15 @@
 
 <?php
-    require  'inc/funciones.php';
+    require  'inc/app.php';
     $inicio = false;
     incluirTemplate('header');
     $id = $_GET['id'];
     $id = filter_var($id,FILTER_VALIDATE_INT);
-    require 'inc/conf/database.php';
-    try{
-        $db = conectarDb();
-    }catch (\Throwable $th) {
-        echo $th;
-    }
+
     if($id){
         $consultaPropiedades = "SELECT*FROM propiedades WHERE id=$id";
         $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
-        var_dump($resConsultaPropiedades);
+
     }else{
         header('Location:/');
     }

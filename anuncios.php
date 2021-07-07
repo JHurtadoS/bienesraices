@@ -2,14 +2,14 @@
 
 
 <?php
-    require  'inc/funciones.php';
+    require  'inc/app.php';
     $inicio = false;
     incluirTemplate('header',$inicio);
 
-    require 'inc/conf/database.php' ;
+
     $inicio = false;
     try{
-        $db = conectarDb();
+
     }catch (\Throwable $th) {
         echo $th;
     }

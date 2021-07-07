@@ -2,12 +2,12 @@
 <?php
 
     $idBorrar;
-    require  '../inc/funciones.php';
+    require  '../inc/app.php';
     analizarSesion();
-    require '..//inc/conf/database.php';
+    
     $inicio = false;
     try{
-        $db = conectarDb();
+
         //printf("Select returned %d rows.\n", mysqli_num_rows($resultadoConsulta));
     }catch (\Throwable $th) {
         echo $th;

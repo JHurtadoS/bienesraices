@@ -1,9 +1,9 @@
 <?php 
     $errores=[];
-    require 'inc/funciones.php';
+    require 'inc/app.php';
     incluirTemplate('header');
-    require 'inc/conf/database.php';
-    $db=conectarDb();
+
+
     $loginCorrecto=false;
     if($_SERVER['REQUEST_METHOD']==='POST'){
 

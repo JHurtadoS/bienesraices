@@ -1,43 +1,39 @@
-
-
 <?php
+
+use App\Propiedad;
+
 $errores = [];
 $datosPrevios;
 $row;
 $fecha=date('Y/m/d');
-require '../../inc/conf/database.php';
 
-require  '../../inc/funciones.php';
+
+require  '../../inc/app.php';
 
 analizarSesion();
 $consulta = "SELECT * FROM vendedores";
-    try{
-        $db = conectarDb();
-        $resultadoConsulta = mysqli_query($db,$consulta);
-        //printf("Select returned %d rows.\n", mysqli_num_rows($resultadoConsulta));
-    }catch (\Throwable $th) {
-        echo $th;
-        echo "hola mundo";
-    }
-   
+
+try{
+    $resultadoConsulta = mysqli_query($db,$consulta);
+}catch (\Throwable $th) {
+    echo $th;
+}
   
-    $vacio=false;
-    $contadorvacios=0;
-    $insercionCorrecta=false;
+$vacio=false;
+$contadorvacios=0;
+$insercionCorrecta=false;
 
 if($_SERVER['REQUEST_METHOD']==='POST')
 {
-
+    $propiedad = new Propiedad($_POST);
+    
     $datos = $_POST;
+
     $datosPrevios = $datos;
+  
     extract($datos);
 
-    foreach ($datos as $value) {
-       $value=mysqli_real_escape_string($db,$value);
-    }
-    
     $imagen=$_FILES['imagen'];
-    //var_dump($imagen);
 
     if(!$imagen['name']){
         $errores[] = 'La imagen es obligatoria';
@@ -56,9 +52,11 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
     $ImagenGuardada = $carpetaImagenes . "$nombreImagen";
     move_uploaded_file($imagen['tmp_name'],$ImagenGuardada);
-    //var_dump($nombreImagen);
 
-    
+    $propiedad->nombreImagen = $nombreImagen;
+
+    $insercionCorrecta = $propiedad->guardar();
+
     foreach ($datos as $key => $value) {
         if(!$value){
             $vacio = true;
@@ -78,9 +76,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         }
     }
 
-    //exit;
-
-    
     echo 
     '<script type="text/javascript">
     document.addEventListener("DOMContentLoaded", (event) => {
@@ -91,37 +86,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     });
     </script>'
     ;
-
-
-    $query = "INSERT INTO propiedades(
-    titulo,
-    precio,
-    nombreImagen,
-    descripcion,
-    habitaciones,
-    wc,
-    estacionamientos,
-    creado,
-    vendedorId)
-    VALUES('$titulo','$precio','$nombreImagen','$descripcion','$habitaciones','$wc','$estacionamientos','$fecha','$vendedorId')";
-
-        if($db!=null & empty($errores)){
-            try{
-                $resultado = mysqli_query($db,$query);
-                if($resultado){
-                    $insercionCorrecta=true;
-                }
-                else{
-                    echo mysqli_errno($db);
-                }        
-
-            }catch (\Throwable $th) {
-                echo $th;
-            }
-       
-        }
     
-
     }
     if(isset($datosPrevios)){
         if($datosPrevios!=null){
@@ -202,7 +167,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
                         
         <input  type="submit" value="CrearPropiedad" class="boton-verde boton-formulario boton-formulario-admin">
         
-        <div class="<?php echo (count($errores)!=0 ?  'alerta' : 'alerta sucess');  ?>" > 
+        <div class="<?php echo (count($errores)!=0 || $insercionCorrecta==false ?  'alerta' : 'alerta sucess');  ?>" > 
         
             <?php
                 if(count($errores)!=0){
@@ -211,6 +176,8 @@ if($_SERVER['REQUEST_METHOD']==='POST')
                     }
                 }else if($insercionCorrecta==true){
                     echo "<p>Insercion de datos correcto</p>";
+                }else if($insercionCorrecta==false){
+                    echo "<p>Error en insercion de datos contecte con su proveedor</p>";
                 }
 
             ?>

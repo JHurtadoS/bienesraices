@@ -1,12 +1,12 @@
 <?php
     declare(strict_types=1);
-    require  'inc/funciones.php';
+    require  'inc/app.php';
     incluirTemplate('header',$inicio = true);
 
-    require 'inc/conf/database.php';
+    //require 'inc/conf/database.php';
     $inicio = false;
     try{
-        $db = conectarDb();
+
     }catch (\Throwable $th) {
         echo $th;
     }
