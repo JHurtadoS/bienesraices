@@ -5,7 +5,9 @@
         "name": "JHurtadoS",
         "email": "juaneshs2014@gmail.com"
     }],
-    "require": {},
+    "require": {
+        "intervention/image": "^2.5"
+    },
     "autoload": {
         "psr-4": {
             "App\\": "./clases"

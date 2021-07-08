@@ -22,8 +22,6 @@ Class Propiedad{
 
     public function __construct($args=[])
     {
-        
-
         $this->id = $args['id'] ?? '';
         $this->titulo = $args['titulo'] ?? '';
         $this->precio = $args['precio'] ?? '0';
@@ -84,5 +82,12 @@ Class Propiedad{
         return $sanitizado;
     }
 
+    public function SetImagen($imagen){
+        if($imagen){
+            $this->nombreImagen=$imagen;
+        }
+
+        
+    }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
 use App\Propiedad;
+use Intervention\Image\ImageManagerStatic as Image;
 
 $errores = [];
 $datosPrevios;
 $row;
 $fecha=date('Y/m/d');
-
 
 require  '../../inc/app.php';
 
@@ -18,44 +18,30 @@ try{
 }catch (\Throwable $th) {
     echo $th;
 }
-  
+$entradaPost=false;
 $vacio=false;
 $contadorvacios=0;
 $insercionCorrecta=false;
 
 if($_SERVER['REQUEST_METHOD']==='POST')
 {
+    $entradaPost=true;
     $propiedad = new Propiedad($_POST);
     
     $datos = $_POST;
-
     $datosPrevios = $datos;
-  
     extract($datos);
 
     $imagen=$_FILES['imagen'];
+    $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
 
     if(!$imagen['name']){
         $errores[] = 'La imagen es obligatoria';
+
+    }else{
+        $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+        $propiedad->SetImagen($nombreImagen);
     }
-    
-    $medida=50000*1000;
-
-    if($imagen['size']>$medida){
-        $errores[] = 'La imagen es muy pesada';
-    }
-
-    $carpetaImagenes = '../../imagenes/';
-    if(!is_dir($carpetaImagenes))
-        mkdir($carpetaImagenes);
-
-    $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
-    $ImagenGuardada = $carpetaImagenes . "$nombreImagen";
-    move_uploaded_file($imagen['tmp_name'],$ImagenGuardada);
-
-    $propiedad->nombreImagen = $nombreImagen;
-
-    $insercionCorrecta = $propiedad->guardar();
 
     foreach ($datos as $key => $value) {
         if(!$value){
@@ -76,6 +62,17 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         }
     }
 
+    if(count($errores)==0){
+        if(!is_dir(CARPETA_IMAGENES)){
+            mkdir(CARPETA_IMAGENES);
+        }
+
+        $image->save(CARPETA_IMAGENES . $nombreImagen);
+
+        $insercionCorrecta = $propiedad->guardar();
+    }
+
+    
     echo 
     '<script type="text/javascript">
     document.addEventListener("DOMContentLoaded", (event) => {
@@ -176,7 +173,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
                     }
                 }else if($insercionCorrecta==true){
                     echo "<p>Insercion de datos correcto</p>";
-                }else if($insercionCorrecta==false){
+                }else if($insercionCorrecta==false && $entradaPost==true){
                     echo "<p>Error en insercion de datos contecte con su proveedor</p>";
                 }
 
