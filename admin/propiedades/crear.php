@@ -15,9 +15,8 @@ $consulta = "SELECT * FROM vendedores";
 
 try{
     $resultadoConsulta = mysqli_query($db,$consulta);
-}catch (\Throwable $th) {
-    echo $th;
-}
+}catch (\Throwable $th) {echo $th;}
+
 $entradaPost=false;
 $vacio=false;
 $contadorvacios=0;
@@ -25,13 +24,17 @@ $insercionCorrecta=false;
 
 if($_SERVER['REQUEST_METHOD']==='POST')
 {
+    
     $entradaPost=true;
     $propiedad = new Propiedad($_POST);
     
     $datos = $_POST;
     $datosPrevios = $datos;
-    extract($datos);
+    foreach ($datosPrevios as $key => $value) {
+        $value=s($value);
+    }
 
+    extract($datosPrevios);
     $imagen=$_FILES['imagen'];
     $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
 
@@ -68,11 +71,9 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         }
 
         $image->save(CARPETA_IMAGENES . $nombreImagen);
-
         $insercionCorrecta = $propiedad->guardar();
     }
 
-    
     echo 
     '<script type="text/javascript">
     document.addEventListener("DOMContentLoaded", (event) => {
@@ -99,50 +100,7 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     <h1>Crear</h1>
 
     <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Informacion general</legend>
-
-
-            <div class="campo">
-                <label for="titulo">Titulo</label>
-                <input type="text" id="titulo" placeholder="Titulo" name="titulo" value="<?php echo isset($titulo)? $titulo: ''?>">
-            </div>
-
-            <div class="campo">
-                <label for="precio">Precio</label>
-                <input type="number" id="precio" placeholder="Precio Propiedad" name="precio" value="<?php echo isset($precio)? $precio: ''?>">
-            </div>
-
-            <div class="campo">
-                <label for="imagen">Imagen</label>
-                <input type="file" id="imagen" accept="image/jpge , image/png" name="imagen" value="<?php echo isset($imagen)? $imagen: ''?>">
-            </div>
-
-            <div class="campo">
-                <label for="descripcion">Descripcion:</label>
-                <textarea id="descripcion" name="descripcion"><?php echo isset($descripcion)? $descripcion: ''?></textarea>
-            </div>
-        </fieldset>
-
-        <fieldset>
-            <legend>Informacion Propiedad</legend>
-  
-
-            <div class="campo">
-                <label for="habitaciones">Habitaciones:</label>
-                <input type="number" id="habitaciones" name="habitaciones" placeholder="Numero de propiedades" min="1" max="9" value="<?php echo isset($habitaciones)? $habitaciones: ''?>">
-            </div>
-
-            <div class="campo">
-                <label for="wc">wc</label>
-                <input type="number" id="wc" name="wc" placeholder="Numero de wc" min="1" max="9" value="<?php echo isset($wc)? $wc: ''?>">
-            </div>
-
-            <div class="campo">
-                <label for="estacionamientos">estacionamientos:</label>
-                <input type="number" id="estacionamientos" name="estacionamientos" placeholder="Numero de estacionamientos" min="1" max="9"value="<?php echo isset($estacionamientos)? $estacionamientos: ''?>">
-            </div>
-        </fieldset>
+        <?php incluirFormulario('formulario_admin',$insercionCorrecta); ?>       
 
         
         <fieldset>
@@ -165,7 +123,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
         <input  type="submit" value="CrearPropiedad" class="boton-verde boton-formulario boton-formulario-admin">
         
         <div class="<?php echo (count($errores)!=0 || $insercionCorrecta==false ?  'alerta' : 'alerta sucess');  ?>" > 
-        
             <?php
                 if(count($errores)!=0){
                     foreach ($errores as $value) {
@@ -176,7 +133,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
                 }else if($insercionCorrecta==false && $entradaPost==true){
                     echo "<p>Error en insercion de datos contecte con su proveedor</p>";
                 }
-
             ?>
         </div>
     </form>

@@ -1,4 +1,5 @@
 <?php
+//declare(strict_types=1);
 namespace App;
 
 
@@ -7,8 +8,6 @@ Class Propiedad{
     protected static $DB;
     protected static $columnas =['id','titulo','precio','nombreImagen','descripcion','habitaciones','wc','estacionamientos',
                                  'creado','vendedorId' ];
-
-
     public $id;
     public $titulo;
     public $precio;
@@ -34,8 +33,43 @@ Class Propiedad{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
+    public function SetArguments($args=[]){
+        foreach ($args as $key => $value) {
+            if(property_exists($this,$key) && !is_null($value))
+                $this->$key = $value;
+        }
+    }
+
     public static function SetDB($database){
         self::$DB = $database;
+    }
+    public static function all(string $tabla ){
+       $query="SELECT * FROM"." ".$tabla;
+       return self::consultarSQL($query);
+    }
+
+    public static function SelectWhere(string $tabla,int $id){
+        $query="SELECT * FROM ".$tabla." "."WHERE id="."$id";
+        $resultado=self::consultarSQL($query);
+        return $resultado[0];
+    }
+
+    public static function consultarSQL($query){
+        $resultado=self::$DB->query($query);
+        $rows=[];
+        while ($registro=$resultado->fetch_assoc()) {
+            $clase="App\Propiedad";
+           $new = new $clase();
+           $object=(object)$registro;
+           foreach($object as $property => &$value)
+           {
+               $new->$property = &$value;
+               unset($object->$property);
+           }
+           $rows[]=$new;
+        }
+        $resultado->free();
+        return $rows;
     }
 
     public function guardar(){
@@ -47,17 +81,32 @@ Class Propiedad{
         $query .= "VALUES(' ";
         $query .= $stringvalues;
         $query .= " ') ";
-        echo"<pre>";
-        echo $query;
-        echo"</pre>";
-        $resultado= self::$DB->query($query);
 
-        echo"<pre>";
-        var_dump($resultado);
-        echo"</pre>";
+        $resultado= self::$DB->query($query);
 
         return $resultado;
 
+    }
+
+    public function actualizar(){
+        $atributos = $this->sanitizarDatos();
+
+        $i=0;
+        $query  = "UPDATE propiedades SET ";
+        
+        foreach ($atributos as $key => $value) {
+            $i++;  
+            $query .= $key."=";
+            $query .= "'".$value."'";
+            if($i<count($atributos)){
+                $query .= " , ";
+            }
+           
+        }
+        $query .=" WHERE id=".$this->$atributos['id'];
+        echo "$query";
+        $resultado= self::$DB->query($query);
+        return $resultado;
     }
 
     public function atributos(){
@@ -85,9 +134,7 @@ Class Propiedad{
     public function SetImagen($imagen){
         if($imagen){
             $this->nombreImagen=$imagen;
-        }
-
-        
+        } 
     }
 
 }
