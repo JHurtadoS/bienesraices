@@ -14,22 +14,21 @@
     if($_SERVER['REQUEST_METHOD']==='POST'){
         $entradaPost=true;
 
-        $datos = $_POST;
-        $datosPrevios = $datos;
-        $vendedor = new Vendedor($_POST);
-
+        $datosPrevios = $_POST;
         foreach ($datosPrevios as $key => $value) {
             $value=s($value);
         }
 
-        extract($datosPrevios);
+        $vendedor = new Vendedor($datosPrevios);
+
 
         $errores=$vendedor->validar(true);
 
 
-        if($errores==null ||count((array)$errores)>1){
-
+        if($errores!=null && count((array)$errores)>1){
             $insercionCorrecta = $vendedor->guardar();
+        }else{
+            $insercionCorrecta=false;
         }
 
         echo 
@@ -42,12 +41,6 @@
             });
         </script>'
         ;
-    }
-
-    if(isset($datosPrevios)){
-        if($datosPrevios!=null){
-            extract($datosPrevios);
-        }
     }
 
     incluirTemplate('header',$inicio=false);

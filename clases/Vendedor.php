@@ -22,6 +22,10 @@ Class Vendedor extends ActiveRecord{
         $this->telefono = $args['telefono'] ?? '';
     }
 
+    public function setId($id){
+        $this->id = $id;
+    }
+
     public function validar(bool $imagenObligatoria){
         $errores=[];
         $vacio=false;
@@ -36,7 +40,7 @@ Class Vendedor extends ActiveRecord{
                     $errores[] = $error;
                 }
             }else if($key=='telefono' && strlen((string)$value)!=9){
-                $error="El numero telefonico debe ser de minimo 10 digitos"; 
+                $error="El numero telefonico debe ser de minimo 9 digitos"; 
                 $errores[] = $error;
             }
         }

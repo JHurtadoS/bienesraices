@@ -36,6 +36,11 @@ Class Propiedad extends ActiveRecord{
         $this->vendedorId = $args['vendedorId'] ?? '';
     }
 
+    
+    public function setId($id){
+        $this->id = $id;
+    }
+
     public function validar(bool $imagenObligatoria){
         $errores=[];
         $vacio=false;

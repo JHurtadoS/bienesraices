@@ -12,7 +12,7 @@
 
     $vendedor  = new Vendedor() ;
     $vendedores=$vendedor->all();
-    $datosPrevios;
+
 
     $id=(int)$_GET['id'];
     $id = filter_var($id,FILTER_VALIDATE_INT);
@@ -20,16 +20,8 @@
         header('location:/admin');
     }
 
-    $propiedad = new Propiedad($_POST);
     $propiedad=$propiedad::SelectWhere($id);
 
-    $datosPrevios = $propiedad;
-
-    if(isset($datosPrevios)){
-        if($datosPrevios!=null){
-            extract((array)$datosPrevios);
-        }
-    }
 
     $vacio=false;
     $contadorvacios=0;
@@ -37,13 +29,18 @@
 
     if($_SERVER['REQUEST_METHOD']==='POST')
     {
-        $propiedad->SetArguments($_POST);
+        
+        $datosPrevios = $_POST;
+
+        foreach ($datosPrevios as $key => $value) {
+            $value=s($value);
+        }
+
+        $propiedad->SetArguments($datosPrevios);
+        $propiedad->setId($id);
 
         $imagen=$_FILES['imagen'];
         $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;  
-
-        $datos = $_POST;
-        extract($datos);
 
         if($imagen['name']){
             unlink(CARPETA_IMAGENES . $propiedad->nombreImagen);
@@ -64,7 +61,7 @@
         ;
         
         if(empty($errores)){
-            $resultado=$propiedad->actualizar($id);
+            $resultado=$propiedad->actualizar();
             if($resultado){
                 $insercionCorrecta=true;
                 if(!is_dir(CARPETA_IMAGENES)){
@@ -79,9 +76,7 @@
                 $errorbaseDeDatos=true;
                 $errores[]="actualizacion incorrecta error interno";
             }        
-            
         }
-        
     }
     $inicio = false;
     incluirTemplate('header',$inicio);
@@ -91,7 +86,7 @@
     <h1>Actualizar</h1>
 
     <form class="formulario" method="POST" enctype="multipart/form-data">
-        <?php incluirFormulario('formulario_admin',$insercionCorrecta,$propiedad,'update'); ?>    
+    <?php incluirFormulario('formulario_admin',$propiedad,'update'); ?>   
 
         <fieldset>
             <legend>Vendedor</legend>

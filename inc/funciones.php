@@ -44,8 +44,8 @@ function s($html):string{
     return $s;
 }
 
-function borrarImagen($variable){
-    $imagen=$variable->nombreImagen;
+function borrarImagen($propiedad){
+    $imagen=$propiedad->nombreImagen;
     $carpetaImagenes = '../imagenes/';
     unlink($carpetaImagenes.$imagen);
 }

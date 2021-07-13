@@ -5,7 +5,6 @@
     use Intervention\Image\ImageManagerStatic as Image;
 
     $errores = [];
-    $datosPrevios;
     $row;
     $fecha=date('Y/m/d');
     require  '../../inc/app.php';
@@ -23,16 +22,15 @@
         $imagen=$_FILES['imagen'];
         $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;  
         $entradaPost=true;
-        $propiedad = new Propiedad($_POST);
         
-        $datos = $_POST;
-        $datosPrevios = $datos;
+        $datosPrevios = $_POST;
 
         foreach ($datosPrevios as $key => $value) {
             $value=s($value);
         }
 
-        extract($datosPrevios);
+        $propiedad = new Propiedad($datosPrevios);
+        
 
         $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
         $propiedad->SetImagen($nombreImagen);
@@ -62,12 +60,7 @@
         ;
   
     }
-    
-    if(isset($datosPrevios)){
-        if($datosPrevios!=null){
-            extract($datosPrevios);
-        }
-    }
+
 
     $inicio = false;
     incluirTemplate('header',$inicio);

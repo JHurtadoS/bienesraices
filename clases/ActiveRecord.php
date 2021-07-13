@@ -75,7 +75,7 @@ class ActiveRecord{
         return $resultado;
     }
 
-    public function actualizar($id){
+    public function actualizar(){
         $atributos = $this->sanitizarDatos();
 
         $i=0;
@@ -89,7 +89,7 @@ class ActiveRecord{
                 $query .= " , ";
             }
         }
-        $query .=" WHERE id="."$id";
+        $query .=" WHERE id="."$this->id";
         $resultado= self::$DB->query($query);
         return $resultado;
     }
