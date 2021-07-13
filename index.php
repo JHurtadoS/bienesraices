@@ -1,6 +1,9 @@
 <?php
     declare(strict_types=1);
-    require  'inc/app.php';
+
+use App\Propiedad;
+
+require  'inc/app.php';
     incluirTemplate('header',$inicio = true);
 
     //require 'inc/conf/database.php';
@@ -10,6 +13,8 @@
     }catch (\Throwable $th) {
         echo $th;
     }
+    $propiedad = new Propiedad();
+    $propiedades = $propiedad->all();
     $consultaPropiedades = "SELECT*FROM propiedades";
     $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
 

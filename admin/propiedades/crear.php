@@ -14,11 +14,9 @@
     $vendedor  = new Vendedor() ;
     $vendedores=$vendedor->all();
 
-
     $entradaPost=false;
-    $vacio=false;
-    $contadorvacios=0;
     $insercionCorrecta=false;
+    $propiedad = new Propiedad();
 
     if($_SERVER['REQUEST_METHOD']==='POST'){
                     
@@ -36,19 +34,16 @@
 
         extract($datosPrevios);
 
-                
-        $errores[]=$propiedad->validar(true);    
-        
-        if(count($errores)==0){
+        $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+        $propiedad->SetImagen($nombreImagen);
 
-           $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
-           $propiedad->SetImagen($nombreImagen);
-                
+        $errores=$propiedad->validar(true);    
+
+        if(count($errores)==0){
+   
             if(!is_dir(CARPETA_IMAGENES)){
                 mkdir(CARPETA_IMAGENES);
             }
-
-
             $insercionCorrecta = $propiedad->guardar();
             if($insercionCorrecta){
                 $image->save(CARPETA_IMAGENES . $nombreImagen);
@@ -82,7 +77,7 @@
     <h1>Crear</h1>
 
     <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
-        <?php incluirFormulario('formulario_admin',$insercionCorrecta); ?>       
+        <?php incluirFormulario('formulario_admin',$propiedad); ?>       
 
         <fieldset>
             <legend>Vendedor</legend>

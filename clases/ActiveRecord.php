@@ -65,20 +65,13 @@ class ActiveRecord{
 
 
         $resultado= self::$DB->query($query);
-
         return $resultado;
 
     }
 
-    public function borrar($id){
-        $query="DELETE FROM ".static::$tabla. "WHERE id=$this->id";
-        echo $query;
-        $propiedad=self::SelectWhere($id);
-        $imagen=$propiedad->nombreImagen;
-        $carpetaImagenes = '../imagenes/';
-        unlink($carpetaImagenes.$imagen);
+    public function borrar(){
+        $query="DELETE FROM ".static::$tabla." WHERE id=$this->id";
         $resultado= self::$DB->query($query);
-        var_dump($resultado);
         return $resultado;
     }
 

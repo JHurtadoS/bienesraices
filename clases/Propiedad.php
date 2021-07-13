@@ -37,6 +37,8 @@ Class Propiedad extends ActiveRecord{
     }
 
     public function validar(bool $imagenObligatoria){
+        $errores=[];
+        $vacio=false;
         $contadorvacios=0; 
         $datos=$this->atributos();
         foreach ($datos as $key => $value) {
@@ -59,9 +61,10 @@ Class Propiedad extends ActiveRecord{
         }
 
         if($imagenObligatoria){
-            if($this->nombreImagen=" "){
+            if($this->nombreImagen == " "){
                 $errores[] = 'La imagen es obligatoria';
             }
+
         }
         return $errores;
     }

@@ -17,7 +17,6 @@
 
         if(!$email){
             $errores[]="El email no es valido";
-            echo "entro"."<br>";
         }
         if(!$password){
             $errores[]="la contraseña no es valida";

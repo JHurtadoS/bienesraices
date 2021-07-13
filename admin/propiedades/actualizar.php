@@ -45,16 +45,12 @@
         $datos = $_POST;
         extract($datos);
 
-        //validacion
         if($imagen['name']){
             unlink(CARPETA_IMAGENES . $propiedad->nombreImagen);
             $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
-            $propiedad->SetImagen($nombreImagen);
         }
 
         $errores=$propiedad->validar(true);
-
-        
 
         echo 
         '<script type="text/javascript">
@@ -74,6 +70,7 @@
                 if(!is_dir(CARPETA_IMAGENES)){
                     mkdir(CARPETA_IMAGENES);
                 }
+                $propiedad->SetImagen($nombreImagen);
                 if($imagen['name']){
                     $image->save(CARPETA_IMAGENES . $nombreImagen);
                 }
@@ -135,7 +132,6 @@
     </div>
 
 </main>
- 
 
 <?php
     incluirTemplate('footer'); 
