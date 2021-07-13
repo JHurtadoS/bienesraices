@@ -1,87 +1,60 @@
 
 <?php
     use App\Propiedad;
+    use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
     $errores = [];
     require  '../../inc/app.php';
     $row;
     $fecha=date('Y/m/d');
 
-
-
     analizarSesion();
-    $consulta = "SELECT * FROM vendedores";
 
-    try{
+    $vendedor  = new Vendedor() ;
+    $vendedores=$vendedor->all();
+    $datosPrevios;
 
-        $resultadoConsulta = mysqli_query($db,$consulta);
-
-    }catch (\Throwable $th) {
-        echo $th;
+    $id=(int)$_GET['id'];
+    $id = filter_var($id,FILTER_VALIDATE_INT);
+    if($id===0){
+        header('location:/admin');
     }
 
-        $datosPrevios;
-       
-        $id=(int)$_GET['id'];
-        $id = filter_var($id,FILTER_VALIDATE_INT);
-        if($id===0){
-            header('location:/admin');
+    $propiedad = new Propiedad($_POST);
+    $propiedad=$propiedad::SelectWhere($id);
+
+    $datosPrevios = $propiedad;
+
+    if(isset($datosPrevios)){
+        if($datosPrevios!=null){
+            extract((array)$datosPrevios);
         }
+    }
 
-        echo "<pre>";
-        var_dump($_POST);
-        echo "</pre>";
-        $propiedad = new Propiedad($_POST);
-
-        $propiedad=$propiedad::SelectWhere('propiedades',$id);
-
-        $datosPrevios = $propiedad;
-
-        if(isset($datosPrevios)){
-            if($datosPrevios!=null){
-                extract((array)$datosPrevios);
-            }
-        }
-        
-        $vacio=false;
-        $contadorvacios=0;
-        $insercionCorrecta=false;
+    $vacio=false;
+    $contadorvacios=0;
+    $insercionCorrecta=false;
 
     if($_SERVER['REQUEST_METHOD']==='POST')
     {
         $propiedad->SetArguments($_POST);
-        $datos = $_POST;
-
-        extract($datos);
 
         $imagen=$_FILES['imagen'];
-        $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
+        $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;  
 
-        
+        $datos = $_POST;
+        extract($datos);
+
+        //validacion
         if($imagen['name']){
             unlink(CARPETA_IMAGENES . $propiedad->nombreImagen);
             $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
             $propiedad->SetImagen($nombreImagen);
         }
 
-        foreach ($datos as $key => $value) {
-            if(!$value){
-                $vacio = true;
-                $contadorvacios++;
-                $error="hay un campo vacio (TODOS LOS CAMPOS SON OBLIGATORIOS)"; 
-                if($contadorvacios===1){
-                    $errores[] = $error;
-                }
-            }else{
-                $vacio=false;
-            }
-            if($key=='descripcion'){
-                if(strlen($value)<50 && $vacio!=true){
-                    $error ="la descripcion debe tener minimo 50 caracteres";
-                    $errores[] =$error;
-                }
-            }
-        }
+        $errores=$propiedad->validar(true);
+
+        
 
         echo 
         '<script type="text/javascript">
@@ -94,16 +67,16 @@
         </script>'
         ;
         
-        $resultado=$propiedad->actualizar();
         if(empty($errores)){
-            if(!is_dir(CARPETA_IMAGENES)){
-                mkdir(CARPETA_IMAGENES);
-            }
-        
-            $image->save(CARPETA_IMAGENES . $nombreImagen);
-
+            $resultado=$propiedad->actualizar($id);
             if($resultado){
                 $insercionCorrecta=true;
+                if(!is_dir(CARPETA_IMAGENES)){
+                    mkdir(CARPETA_IMAGENES);
+                }
+                if($imagen['name']){
+                    $image->save(CARPETA_IMAGENES . $nombreImagen);
+                }
             }
             else{
                 $errorbaseDeDatos=true;
@@ -130,11 +103,11 @@
                 <select id="opciones_vendedorId" name="vendedorId"  value="<?php echo isset($vendedorId)? $vendedorId: " " ?> ">
                     <option value="0" disabled selected>>-- Seleccion un vendedor --<</option>
                     
-                    <?php while($row = mysqli_fetch_assoc($resultadoConsulta)): ?>
-                        <option <?php  if(isset($vendedorId)){echo $vendedorId === $row['id'] ? 'selected' : '';}?> 
-                        value="<?php echo  $row['id']?>"> <?php echo $row['nombre']." ".$row['apellido'] ; ?>     
+                    <?php foreach ($vendedores as $key => $value): ?>
+                        <option <?php  if(isset($vendedorId)){echo $vendedorId === $value->id ? 'selected' : '';}?> 
+                        value="<?php echo  $value->id?>"> <?php echo $value->nombre." ".$value->apellido ; ?>     
                         </option>
-                    <?php  endwhile; ?>
+                    <?php  endforeach; ?>
                     
                 </select>
             </div>

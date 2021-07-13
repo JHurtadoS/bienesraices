@@ -15,29 +15,25 @@ $idBorrar;
    
     incluirTemplate('header',$inicio);
     
-    $propiedades = Propiedad::all("propiedades");
+    $propiedades = Propiedad::all();
     
     if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $id=$_POST['id'];
         $id=filter_var($id,FILTER_VALIDATE_INT);
-        $consultaEliminar = "DELETE FROM propiedades WHERE id=$id"; 
-        $consultaSeleccionar = "SELECT *FROM propiedades WHERE id=$id";
-        $resultadoconsultaSeleccionar = mysqli_query($db,$consultaSeleccionar);
-        $datosPropiedades = mysqli_fetch_assoc($resultadoconsultaSeleccionar);
-        $carpetaImagenes = '../imagenes/';
-        unlink($carpetaImagenes.$datosPropiedades['nombreImagen']);
-        if($db!=null && $id){
+        $propiedad = new Propiedad($_POST);
+        $resultado=$propiedad->borrar($id);
+
+        if($DB!=null && $id){
             try{
-                $resultado_eliminacion=mysqli_query($db,$consultaEliminar);
-                if(!$resultado_eliminacion){
-                    echo mysqli_errno($db);
+                if(!$resultado){
+                    echo mysqli_errno($DB);
                 }
             }catch(\Throwable $th){
                 echo $th;
             }    
 
         }
-        if($resultado_eliminacion){
+        if($resultado){
             header('location:/admin');
         }
     }

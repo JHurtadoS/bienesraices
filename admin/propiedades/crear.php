@@ -1,91 +1,73 @@
 <?php
 
-use App\Propiedad;
-use Intervention\Image\ImageManagerStatic as Image;
+    use App\Propiedad;
+    use App\Vendedor;
+    use Intervention\Image\ImageManagerStatic as Image;
 
-$errores = [];
-$datosPrevios;
-$row;
-$fecha=date('Y/m/d');
+    $errores = [];
+    $datosPrevios;
+    $row;
+    $fecha=date('Y/m/d');
+    require  '../../inc/app.php';
 
-require  '../../inc/app.php';
+    analizarSesion();
+    $vendedor  = new Vendedor() ;
+    $vendedores=$vendedor->all();
 
-analizarSesion();
-$consulta = "SELECT * FROM vendedores";
 
-try{
-    $resultadoConsulta = mysqli_query($db,$consulta);
-}catch (\Throwable $th) {echo $th;}
+    $entradaPost=false;
+    $vacio=false;
+    $contadorvacios=0;
+    $insercionCorrecta=false;
 
-$entradaPost=false;
-$vacio=false;
-$contadorvacios=0;
-$insercionCorrecta=false;
+    if($_SERVER['REQUEST_METHOD']==='POST'){
+                    
+        $imagen=$_FILES['imagen'];
+        $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;  
+        $entradaPost=true;
+        $propiedad = new Propiedad($_POST);
+        
+        $datos = $_POST;
+        $datosPrevios = $datos;
 
-if($_SERVER['REQUEST_METHOD']==='POST')
-{
-    
-    $entradaPost=true;
-    $propiedad = new Propiedad($_POST);
-    
-    $datos = $_POST;
-    $datosPrevios = $datos;
-    foreach ($datosPrevios as $key => $value) {
-        $value=s($value);
-    }
-
-    extract($datosPrevios);
-    $imagen=$_FILES['imagen'];
-    $nombreImagen = md5(uniqid(rand(),true)).".jpg" ;   
-
-    if(!$imagen['name']){
-        $errores[] = 'La imagen es obligatoria';
-
-    }else{
-        $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
-        $propiedad->SetImagen($nombreImagen);
-    }
-
-    foreach ($datos as $key => $value) {
-        if(!$value){
-            $vacio = true;
-            $contadorvacios++;
-            $error="hay un campo vacio (TODOS LOS CAMPOS SON OBLIGATORIOS)"; 
-            if($contadorvacios===1){
-                $errores[] = $error;
-            }
-        }else{
-            $vacio=false;
+        foreach ($datosPrevios as $key => $value) {
+            $value=s($value);
         }
-        if($key=='descripcion'){
-            if(strlen($value)<50 && $vacio!=true){
-                $error ="la descripcion debe tener minimo 50 caracteres";
-                $errores[] =$error;
+
+        extract($datosPrevios);
+
+                
+        $errores[]=$propiedad->validar(true);    
+        
+        if(count($errores)==0){
+
+           $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
+           $propiedad->SetImagen($nombreImagen);
+                
+            if(!is_dir(CARPETA_IMAGENES)){
+                mkdir(CARPETA_IMAGENES);
+            }
+
+
+            $insercionCorrecta = $propiedad->guardar();
+            if($insercionCorrecta){
+                $image->save(CARPETA_IMAGENES . $nombreImagen);
             }
         }
+
+        echo 
+        '<script type="text/javascript">
+            document.addEventListener("DOMContentLoaded", (event) => {
+                let Boton_Crear_Propiedad = document.querySelector(".boton-formulario-admin");
+                if(Boton_Crear_Propiedad!=null){
+                    Boton_Crear_Propiedad.scrollIntoView({behavior:"smooth"});
+                }
+            });
+        </script>'
+        ;
+  
     }
-
-    if(count($errores)==0){
-        if(!is_dir(CARPETA_IMAGENES)){
-            mkdir(CARPETA_IMAGENES);
-        }
-
-        $image->save(CARPETA_IMAGENES . $nombreImagen);
-        $insercionCorrecta = $propiedad->guardar();
-    }
-
-    echo 
-    '<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", (event) => {
-        let Boton_Crear_Propiedad = document.querySelector(".boton-formulario-admin");
-        if(Boton_Crear_Propiedad!=null){
-            Boton_Crear_Propiedad.scrollIntoView({behavior:"smooth"});
-        }
-    });
-    </script>'
-    ;
     
-    }
     if(isset($datosPrevios)){
         if($datosPrevios!=null){
             extract($datosPrevios);
@@ -102,7 +84,6 @@ if($_SERVER['REQUEST_METHOD']==='POST')
     <form class="formulario" method="POST" action="/admin/propiedades/crear.php" enctype="multipart/form-data">
         <?php incluirFormulario('formulario_admin',$insercionCorrecta); ?>       
 
-        
         <fieldset>
             <legend>Vendedor</legend>
             <div class="campo">
@@ -110,11 +91,11 @@ if($_SERVER['REQUEST_METHOD']==='POST')
                 <select id="opciones_vendedorId" name="vendedorId"  value="<?php echo isset($vendedorId)? $vendedorId: " " ?> ">
                     <option value="0" disabled selected>>-- Seleccion un vendedor --<</option>
                     
-                    <?php while($row = mysqli_fetch_assoc($resultadoConsulta)): ?>
-                        <option <?php  if(isset($vendedorId)){echo $vendedorId === $row['id'] ? 'selected' : '';}?> 
-                        value="<?php echo  $row['id']?>"> <?php echo $row['nombre']." ".$row['apellido'] ; ?>     
+                    <?php foreach ($vendedores as $key => $value): ?>
+                        <option <?php  if(isset($vendedorId)){echo $vendedorId === $value->id ? 'selected' : '';}?> 
+                        value="<?php echo  $value->id?>"> <?php echo $value->nombre." ".$value->apellido ; ?>     
                         </option>
-                    <?php  endwhile; ?>
+                    <?php  endforeach; ?>
                     
                 </select>
             </div>
