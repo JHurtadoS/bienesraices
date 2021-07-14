@@ -15,8 +15,7 @@ require  'inc/app.php';
     }
     $propiedad = new Propiedad();
     $propiedades = $propiedad->all();
-    $consultaPropiedades = "SELECT*FROM propiedades";
-    $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+
 
 ?>
 
@@ -55,9 +54,12 @@ require  'inc/app.php';
         <div class="propiedades-1">
             <h2>Casas y Depas en Venta</h2>
             <div class="contenedor-propiedades">
-                <?php $i=0; while($row = mysqli_fetch_assoc($resConsultaPropiedades)): $i++; if($i<=3): ?>
-                    <?php inlcuirPropiedad($row['titulo'],$row['nombreImagen'],$row['precio'],$row['descripcion'],$row['wc'],$row['estacionamientos'],$row['habitaciones'],$row['id']); ?>
-                 <?php endif; endwhile; ?>   
+                <?php $i=0; foreach($propiedades as $value): $i++; if($i<=3): ?>
+                    <?php 
+                        inlcuirPropiedad($value->titulo,$value->nombreImagen,$value->precio,
+                        $value->descripcion,$value->wc,$value->estacionamientos,$value->habitaciones,$value->id);
+                    ?>
+                 <?php endif; endforeach; ?>   
 
                 <div class="contenedor-verTodasgrid">
                     <div class="boton boton-verTodas">

@@ -10,8 +10,10 @@
         $queryUsuarios ="SELECT * FROM usuarios";
         $resultado = mysqli_query($db,$queryUsuarios);
 
+
         $variablesFormulario=$_POST;
         extract($variablesFormulario);
+
         $email=mysqli_real_escape_string($db,filter_var($_POST['email'],FILTER_VALIDATE_EMAIL));
         $password = mysqli_real_escape_string($db,$_POST['password']);
 

@@ -1,6 +1,5 @@
 
 <?php
-    use App\Propiedad;
     use App\Vendedor;
     use Intervention\Image\ImageManagerStatic as Image;
     $errores = [];

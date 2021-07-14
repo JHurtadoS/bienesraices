@@ -4,7 +4,10 @@
     </div>
     <div class="contenedor-info-propiedad">
         <h3><?php echo $nombre ?></h3>
-            <p> <?php echo  $descricion; ?> </p>
+            
+            <div class="descripcion">
+                <p> <?php echo  $descricion; ?> </p>
+            </div>
             <p class="precio">$<?php echo $precio; ?></p>
     </div>
 

@@ -1,7 +1,6 @@
 
-
-
 <?php
+    use App\Propiedad;
     require  'inc/app.php';
     $inicio = false;
     incluirTemplate('header',$inicio);
@@ -13,8 +12,8 @@
     }catch (\Throwable $th) {
         echo $th;
     }
-    $consultaPropiedades = "SELECT*FROM propiedades";
-    $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+    $propiedades=Propiedad::all();
+
 ?>
     <main class="contenedor seccion">
         <h1>Anuncios</h1>
@@ -23,9 +22,12 @@
             <h2>Casas y Depas en Venta</h2>
             <div class="contenedor-propiedades">
 
-            <?php $i=0; while($row = mysqli_fetch_assoc($resConsultaPropiedades)):?>
-                <?php inlcuirPropiedad($row['titulo'],$row['nombreImagen'],$row['precio'],$row['descripcion'],$row['wc'],$row['estacionamientos'],$row['habitaciones'],$row['id']); ?>
-            <?php endwhile; ?>   
+            <?php foreach($propiedades as $value):?>
+                <?php
+                    inlcuirPropiedad($value->titulo,$value->nombreImagen,$value->precio,
+                    $value->descripcion,$value->wc,$value->estacionamientos,$value->habitaciones,$value->id);
+                ?>
+            <?php endforeach; ?>   
 
 
             </div>

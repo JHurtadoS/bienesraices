@@ -5,6 +5,9 @@
         margin: 0;
         margin-bottom: 1.5rem;
     }
+    .propiedad {
+        max-width: 28rem;
+    }
 }
 
 .anuncios {
@@ -54,8 +57,13 @@
             margin-bottom: 0;
             margin-top: 1rem;
         }
-        p {
-            margin-top: 0.5rem;
+        .descripcion {
+            display: grid;
+            place-items: center;
+            p {
+                min-height: 325px;
+                margin-top: 0.5rem;
+            }
         }
     }
     @include desktop {

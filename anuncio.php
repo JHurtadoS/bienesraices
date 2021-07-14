@@ -1,5 +1,6 @@
 
 <?php
+    use App\Propiedad;
     require  'inc/app.php';
     $inicio = false;
     incluirTemplate('header');
@@ -7,25 +8,21 @@
     $id = filter_var($id,FILTER_VALIDATE_INT);
 
     if($id){
-        $consultaPropiedades = "SELECT*FROM propiedades WHERE id=$id";
-        $resConsultaPropiedades = mysqli_query($db,$consultaPropiedades);
+        $propiedad=Propiedad::SelectWhere($id);
 
     }else{
         header('Location:/');
     }
-    
-    if(!$resConsultaPropiedades->num_rows){
-        header('Location:/');
-    }
+
 ?>
 
     <main class="contenedor seccion anuncio">
         <h1>Casa en el lago </h1>
         <div class="contenedor-propiedades anuncio-propiedad">
         <?php 
-                $row = mysqli_fetch_assoc($resConsultaPropiedades);  
-                inlcuirAnuncio($row['titulo'],$row['nombreImagen'],$row['precio'],
-                $row['descripcion'],$row['wc'],$row['estacionamientos'],$row['habitaciones'],$row['id']);
+             
+                inlcuirAnuncio($propiedad->titulo,$propiedad->nombreImagen,$propiedad->precio,
+                $propiedad->descripcion,$propiedad->wc,$propiedad->estacionamientos,$propiedad->habitaciones,$propiedad->id);
         ?>
             
 
