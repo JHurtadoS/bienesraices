@@ -1,0 +1,59 @@
+.admin {
+    &.boton-verde {
+        margin-top: 2rem;
+        width: 20rem;
+        text-align: center;
+        padding: 0;
+    }
+    a {
+        display: inline-block;
+        width: 100%;
+        padding: 0.5rem 0.5rem;
+    }
+    &.tabla_de_propiedades {
+        display: grid;
+        row-gap: 2rem;
+        .propiedades {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: 2rem;
+            .acciones {
+                .eliminar {
+                    color: $blanco;
+                    width: 100%;
+                }
+                .boton {
+                    display: inline-flex;
+                    margin: 2rem 0;
+                }
+            }
+            p {
+                margin: 0 1rem;
+            }
+        }
+        .rows {
+            color: $blanco;
+            background-color: $verde;
+            display: grid;
+            p {
+                margin: 0 1rem;
+            }
+            padding: 1rem 0;
+            grid-template-columns: repeat(5, 1fr);
+            column-gap: 1rem;
+        }
+    }
+}
+
+.imagen-small {
+    width: 20rem;
+}
+
+.InicioSesion {
+    &.formulario {
+        width: 65%;
+    }
+    fieldset {
+        width: 40rem;
+    }
+}

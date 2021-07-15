@@ -1,0 +1,45 @@
+h2:first-child {
+    font-weight: $black;
+}
+
+.SobreNosotros {
+    width: 100%;
+    .items {
+        display: block;
+        .item {
+            margin: 3.5rem 0;
+        }
+        width: 85%;
+        @include tablet {
+            width: 45%;
+        }
+        margin: 0 auto;
+        @include desktop {
+            .item {
+                margin: 0;
+            }
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            column-gap: 3rem;
+            margin: auto;
+        }
+        @include tablet {
+            width: 50%;
+        }
+        .item {
+            img {
+                max-height: 17.3rem;
+                max-width: 22rem;
+                margin: 0 auto;
+            }
+            .contenedor-texto {
+                p {
+                    text-align: justify;
+                    @include telefono {
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+}

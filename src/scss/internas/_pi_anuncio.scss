@@ -1,0 +1,37 @@
+.anuncio {
+    h1 {
+        font-weight: $bold;
+    }
+    .anuncio-propiedad {
+        display: block;
+        .propiedad {
+            border: none;
+            .precio {
+                color: black;
+            }
+            .contenedor-iconos-propiedad {
+                margin: 0 0;
+                max-width: 60%;
+                column-gap: 5rem;
+                padding: 0;
+                .contenedor-icono {
+                    place-content: start;
+                    &:first-child {
+                        place-content: start;
+                        margin-left: 1.5rem;
+                    }
+                    &:last-child {
+                        place-content: start;
+                        margin-right: 1.5rem;
+                    }
+                }
+            }
+        }
+    }
+    .contenedor-info-propiedad {
+        display: grid;
+        grid-template-columns: 10rem 1fr;
+        column-gap: 3rem;
+        margin-top: 2.5rem;
+    }
+}

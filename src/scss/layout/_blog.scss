@@ -1,0 +1,147 @@
+.contenedor {
+    @include tablet {
+        width: 85%;
+    }
+}
+
+.blog {
+    .titulo-blog {
+        h3 {
+            margin: 0 0 0 0;
+            &:last-child {
+                margin: 2rem 0 1rem 0;
+            }
+        }
+        @include desktop {
+            h3 {
+                margin: 0 0;
+            }
+        }
+    }
+    display: flex;
+    flex-direction: column;
+    @include desktop {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        grid-template-rows: 8rem 1fr;
+        column-gap: 2rem;
+        .titulo-blog {
+            grid-row: 1;
+        }
+    }
+    .entradas {
+        margin: 0 auto;
+        margin-top: 3rem;
+        .contenedor-imagen {
+            max-width: 60rem;
+            margin-right: 0;
+        }
+        @include desktop {
+            margin: 0 0;
+            grid-row: 2;
+            display: grid;
+            grid-template-rows: repeat(2, 1fr);
+            row-gap: 2.5rem;
+            text-align: center;
+            .contenedor-imagen {
+                margin-right: 1rem;
+            }
+        }
+        @include telefono {
+            .contenedor-imagen {
+                max-width: 100%;
+            }
+        }
+        .entrada {
+            margin-top: 6rem;
+            &:first-child {
+                margin-top: 3rem;
+            }
+            display: block;
+            h4 {
+                text-align: left;
+                margin: 1rem 0;
+                &::after {
+                    content: '';
+                    display: block;
+                    width: 15rem;
+                    height: 0.5rem;
+                    //margin-left: 4.7rem;
+                    background-color: $verde;
+                }
+            }
+            p {
+                margin: 0;
+            }
+            .fecha {
+                margin-bottom: 1rem;
+                span {
+                    color: $amarillo;
+                    margin: 0 0.5rem;
+                }
+            }
+            @include desktop {
+                margin-top: 0;
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                place-items: center;
+                .texto-entrada {
+                    text-align: justify;
+                    margin: 0 5px;
+                }
+                h4 {
+                    margin: 0 0 2rem 0;
+                }
+                .fecha {
+                    text-align: left;
+                    margin: 0 0 2rem 0;
+                }
+            }
+        }
+    }
+    .testimoniales {
+        margin: 0 auto;
+        @include desktop {
+            margin: 0 0;
+            grid-column: 2;
+        }
+        .testimonial {
+            margin-top: 2rem;
+            height: 100%;
+            border-radius: 1rem;
+            background-color: $verde;
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+            align-items: center;
+            .contenido-testimonial {
+                margin: auto 0;
+                padding-right: 2rem;
+                &:before {
+                    content: '';
+                    background-image: url(build/img/comilla.svg);
+                    background-repeat: no-repeat;
+                    width: 6rem;
+                    height: 8rem;
+                    display: block;
+                    margin-left: 0.5rem;
+                }
+                .texto-testimonial {
+                    margin: auto 0;
+                    margin-left: 3rem;
+                    margin-right: 2rem;
+                    p {
+                        color: $blanco;
+                        font-size: 2.4rem;
+                    }
+                    .autor-testimonial {
+                        margin-left: 3rem;
+                    }
+                    blockquote {
+                        margin: 0;
+                    }
+                }
+            }
+        }
+    }
+}
