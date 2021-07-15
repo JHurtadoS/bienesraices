@@ -63,7 +63,6 @@ class ActiveRecord{
         $query .= $stringvalues;
         $query .= " ') ";
 
-
         $resultado= self::$DB->query($query);
         return $resultado;
 

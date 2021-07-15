@@ -10,9 +10,10 @@ class PropiedadController{
     public static function index(Router $router){
 
         $propiedades = Propiedad::all();
-
+        $vendedores = Vendedor::all();
         $router->render("/propiedades/admin",[
-           'propiedades'=>$propiedades
+           'propiedades'=>$propiedades,
+           'vendedores'=>$vendedores
         ]);  
     }
     public static function crear(Router $router){
@@ -109,8 +110,10 @@ class PropiedadController{
 
             if($imagen['name']){
                 unlink(CARPETA_IMAGENES . $propiedad->nombreImagen);
+                $propiedad->SetImagen($nombreImagen);
                 $image= Image::make($_FILES['imagen']['tmp_name'])->fit(800,600);
             }
+
 
             $errores=$propiedad->validar(true);
 
@@ -132,7 +135,8 @@ class PropiedadController{
                     if(!is_dir(CARPETA_IMAGENES)){
                         mkdir(CARPETA_IMAGENES);
                     }
-                    $propiedad->SetImagen($nombreImagen);
+                    //$propiedad->nombreImagen = $nombreImagen;
+                   
                     if($imagen['name']){
                         $image->save(CARPETA_IMAGENES . $nombreImagen);
                     }
@@ -151,5 +155,20 @@ class PropiedadController{
             "entradaPost"=>$entradaPost,
             'vendedores'=>$vendedores
          ]); 
+    }
+
+    public static function eliminar(){
+        if($_SERVER['REQUEST_METHOD'] === 'POST'){
+            $id=$_POST['id'];
+            $id=filter_var($id,FILTER_VALIDATE_INT);
+            if($id){
+                $propiedad = Propiedad::SelectWhere($id);
+                $resultado=$propiedad->borrar($id);
+                unlink(CARPETA_IMAGENES . $propiedad->nombreImagen);
+                if($resultado){
+                    header('location:/admin');
+                }
+            }
+        }
     }
 }

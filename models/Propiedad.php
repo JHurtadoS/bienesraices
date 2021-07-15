@@ -74,4 +74,8 @@ Class Propiedad extends ActiveRecord{
         return $errores;
     }
 
+    public function setImagen($nombreImagen){
+        $this->nombreImagen = $nombreImagen;
+    }
+
 }
