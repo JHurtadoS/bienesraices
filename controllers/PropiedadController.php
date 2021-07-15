@@ -83,7 +83,7 @@ class PropiedadController{
     public static function actualizar(Router $router){
         $errores=[];
         $insercionCorrecta=false;
-        echo "prueba";
+
         $entradaPost=false;
         $id=(int)$_GET['id'];
         $id = filter_var($id,FILTER_VALIDATE_INT);
