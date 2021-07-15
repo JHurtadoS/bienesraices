@@ -16,6 +16,7 @@
                         <option <?php  if(isset($propiedad)){echo $propiedad->vendedorId === $value->id ? 'selected' : '';}?> 
                         value="<?php echo  $value->id?>"> <?php echo $value->nombre." ".$value->apellido ; ?>     
                         </option>
+                        
                     <?php  endforeach; ?>
                     
                 </select>
