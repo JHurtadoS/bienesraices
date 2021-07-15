@@ -21,9 +21,6 @@
 
     $propiedad=$propiedad::SelectWhere($id);
 
-
-    $vacio=false;
-    $contadorvacios=0;
     $insercionCorrecta=false;
 
     if($_SERVER['REQUEST_METHOD']==='POST')
