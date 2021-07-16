@@ -17,12 +17,14 @@ class Router {
 
     public function post($url,$fn){
         $this->rutasPost[$url]= $fn;
-
     }
 
 
     public function comprobarRutas(){
-        $urlActual= $_SERVER['PATH_INFO'] ?? "/";
+        
+        $urlActual= $_SERVER['PATH_INFO'] ?? '/';
+
+
         $metodo = $_SERVER['REQUEST_METHOD'];
         if($metodo=='GET'){
             $fn=$this->rutasGet[$urlActual];

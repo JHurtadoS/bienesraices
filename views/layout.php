@@ -3,7 +3,7 @@
         session_start();
     }
     $auth=$_SESSION['login'] ?? null;
-    $inicio=false;
+    //$inicio=false;
 ?>
 
 
@@ -22,7 +22,7 @@
     <header class="<?php  echo $inicio ? 'inicio' : '' ?>" >
         <div class="contenedor contenido-header">
             <div class="barra">
-                <a href="index.php">
+                <a href="/">
                     <img class="logo" src="/build/img/logo.svg" alt="logotipo de bienes raices">
                 </a>
 
@@ -61,10 +61,10 @@
     <footer class="footer seccion">
         <div class="contenedor-footer contenedor">
             <nav class="navegacion">
-                <a href="/nosotros.php">Nosotros</a>
-                <a href="/anuncios.php">Anuncios</a>
-                <a href="/blog.php">Blog</a>
-                <a href="/contactanos.php">Contacto</a>
+                <a href="/nosotros">Nosotros</a>
+                <a href="/propiedades">Anuncios</a>
+                <a href="/blog">Blog</a>
+                <a href="/contactanos">Contacto</a>
             </nav>
             <p class="copyright">Todos los derechos reservados <?php $fecha=date('Y');  echo $fecha ?> &copy;</p>
         </div>
