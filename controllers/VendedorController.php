@@ -8,6 +8,7 @@ class VendedorController{
 
 
     public static function crear(Router $router){
+        analizarSesion();
         $insercionCorrecta=false; 
         $errores=[];
         $entradaPost=false;
@@ -53,6 +54,7 @@ class VendedorController{
     }
 
     public static function actualizar(Router $router){
+        analizarSesion();
         $id=(int)$_GET['id'];
         $id = filter_var($id,FILTER_VALIDATE_INT);
     
@@ -111,6 +113,7 @@ class VendedorController{
     }
 
     public static function eliminar(){
+        analizarSesion();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id=$_POST['id'];
             $id=filter_var($id,FILTER_VALIDATE_INT);

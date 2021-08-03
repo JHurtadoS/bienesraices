@@ -8,16 +8,18 @@ use Intervention\Image\ImageManagerStatic as Image;
 
 class PropiedadController{
     public static function index(Router $router){
-
+        analizarSesion();
         $propiedades = Propiedad::all();
         $vendedores = Vendedor::all();
+        $inicio=false;
         $router->render("/propiedades/admin",[
+            'inicio'=>$inicio,
            'propiedades'=>$propiedades,
            'vendedores'=>$vendedores
         ]);  
     }
     public static function crear(Router $router){
-
+        analizarSesion();
         $propiedad = new Propiedad;
         $errores=[];
         $insercionCorrecta=false;
@@ -82,6 +84,7 @@ class PropiedadController{
     }
 
     public static function actualizar(Router $router){
+        analizarSesion();
         $errores=[];
         $insercionCorrecta=false;
 
@@ -158,6 +161,7 @@ class PropiedadController{
     }
 
     public static function eliminar(){
+        analizarSesion();
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $id=$_POST['id'];
             $id=filter_var($id,FILTER_VALIDATE_INT);

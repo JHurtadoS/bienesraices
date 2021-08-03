@@ -19,7 +19,7 @@
 </head>
 
 <body>
-    <header class="<?php  echo $inicio ? 'inicio' : '' ?>" >
+    <header class="<?php  echo $inicio ? 'inicio' : '' ?>">
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/">
@@ -35,13 +35,11 @@
                         <img src="/build/img/dark-mode.svg" alt="">
                     </div>
                     <nav class="navegacion hover-nav">
-
-
-                        <a href="nosotros.php">Nosotros</a>
-                        <a href="anuncios.php">Anuncios</a>
-                        <a href="blog.php">Blog</a>
-                        <a href="contactanos.php">Contacto</a>
-                        <?php echo $auth?'<a href="CerrarSesion.php">Cerrar sesion</a>':"" ; ?>
+                        <a href="/nosotros">Nosotros</a>
+                        <a href="/propiedades">Anuncios</a>
+                        <a href="/blog">Blog</a>
+                        <a href="/contactanos">Contacto</a>
+                        <?php echo $auth?'<a href="/logout">Cerrar sesion</a>':'<a href="/login">Iniciar sesion</a>' ; ?>
                     </nav>
                 </div>
             </div>
@@ -75,9 +73,3 @@
 </body>
 
 </html>
-
-
-
-
-
-

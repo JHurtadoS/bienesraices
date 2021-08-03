@@ -27,12 +27,15 @@ class Router {
 
         $metodo = $_SERVER['REQUEST_METHOD'];
         if($metodo=='GET'){
+            //error_reporting(0);
             $fn=$this->rutasGet[$urlActual];
+                      
         }else{
             $fn=$this->rutasPost[$urlActual];
         }
 
         if($fn){
+
             call_user_func($fn,$this);
         }else{
             echo "pagina no encontrada";

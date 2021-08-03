@@ -6,6 +6,15 @@
         <img loading="lazy" src="build/img/destacada3.webp">
         <h2>LLena el formulario</h2>
         <form class="formulario" action="/contactanos" method="POST">
+
+            <?php 
+                if($sucess==true){
+                    echo"<div class='alerta sucess'>
+                        <p>Correo Enviado Nos comunicaremos prontamente con usted</p>
+                    </div>";
+                }
+            ?>
+
             <fieldset>
                 <legend>Informacion Personal</legend>
                 <div class="campo">
