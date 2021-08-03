@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     evenlisterns();
     darkmodeSistema();
     alerta();
+    TipoContacto();
 });
 
 function evenlisterns() {
@@ -60,4 +61,36 @@ function alerta() {
         });
     }
 
+}
+
+function TipoContacto() {
+    let metodoContactos = document.querySelectorAll('input[name="contacto[TipoContacto]"]');
+    //console.log(metodoContactos);
+
+    metodoContactos.forEach(e => {
+        e.addEventListener("click", mostrarMetodosContacto);
+        console.log(e);
+    });
+
+
+
+}
+
+function mostrarMetodosContacto(e) {
+    const contactoDiv = document.querySelector('.contacto');
+    if (e.target.value == 'telefono') {
+        contactoDiv.innerHTML = `
+        <div class="campo">
+            <label for="telefono">Telefono:</label>
+            <input type="tel" placeholder="Telefono" name="contacto[telefono]"required>
+        </div>
+        `;
+    } else {
+        contactoDiv.innerHTML = `
+        <div class="campo">
+            <label for="email">E-mail:</label>
+            <input type="email" placeholder="E-mail" name="contacto[email]"required>
+        </div>
+        `;
+    }
 }
