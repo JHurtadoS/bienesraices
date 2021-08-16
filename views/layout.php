@@ -34,7 +34,7 @@
                     <div class="contenedor-darkmode">
                         <img src="/build/img/dark-mode.svg" alt="">
                     </div>
-                    <nav class="navegacion hover-nav">
+                    <nav data-cy="navegacion-header" class="navegacion hover-nav">
                         <a href="/nosotros">Nosotros</a>
                         <a href="/propiedades">Anuncios</a>
                         <a href="/blog">Blog</a>
@@ -45,7 +45,7 @@
             </div>
 
             <?php echo $inicio ? 
-            '<div class="contenedor-titulo-header"><h1>Venta de Casas Y departamentos <span> Exclusivos de lujo</span> </div>' 
+            '<div class="contenedor-titulo-header"><h1 data-cy="heading-sitio">Venta de Casas Y departamentos <span> Exclusivos de lujo</span></div>' 
             : ' '?>
 
 
@@ -58,7 +58,7 @@
 
     <footer class="footer seccion">
         <div class="contenedor-footer contenedor">
-            <nav class="navegacion">
+            <nav data-cy="navegacion-footer" class="navegacion">
                 <a href="/nosotros">Nosotros</a>
                 <a href="/propiedades">Anuncios</a>
                 <a href="/blog">Blog</a>

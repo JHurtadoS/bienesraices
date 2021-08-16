@@ -45,7 +45,7 @@
             </div>
 
             <?php echo $inicio ? 
-            '<div class="contenedor-titulo-header"><h1>Venta de Casas Y departamentos <span> Exclusivos de lujo</span> </div>' 
+            '<div class="contenedor-titulo-header"><h1 data-cy="heading-sitio">Venta de Casaos Y departamentos <span> Exclusivos de lujo</span> </div>' 
             : ' '?>
 
 

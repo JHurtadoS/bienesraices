@@ -2,7 +2,7 @@
     <h2>Mas sobre Nosostros</h2>
 
     <div class="SobreNosotros seccion">
-        <div class="items">
+        <div class="items" data-cy="iconos-nosotros">
             <div class="item">
                 <img src="build/img/icono1.svg" alt="" srcset="">
                 <h2>SEGURIDAD</h2>
@@ -42,7 +42,7 @@
 
             <div class="contenedor-verTodasgrid">
                 <div class="boton boton-verTodas">
-                    <a href="/propiedades">Ver todas</a>
+                    <a href="/propiedades" data-cy="enlace-propiedades">Ver todas</a>
                 </div>
             </div>
 

@@ -1,4 +1,4 @@
-<div class="propiedad">
+<div class="propiedad" data-cy="propiedad">
     <div class="comtenedor-imagen-propiedad">
         <img src="/imagenes/<?php echo $imagen ?>" alt="">
     </div>
@@ -29,7 +29,7 @@
     </div>
     <div class="contenedor-boton">
         <div class="boton boton-propiedad">
-            <a href="/anuncio?id=<?php echo $id;?>">Ver Propiedad</a>
+            <a href="/anuncio?id=<?php echo $id;?>"data-cy="enlace-propiedad">Ver Propiedad</a>
         </div>
     </div>
 </div>

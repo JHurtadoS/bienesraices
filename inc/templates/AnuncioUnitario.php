@@ -1,3 +1,4 @@
+<h1 data-cy="titulo-propiedad"><?php echo $nombre;?></h1>
 <div class="propiedad">
     <div class="comtenedor-imagen-propiedad">
     <img src="/imagenes/<?php echo $imagen ?>" alt="">

@@ -49,11 +49,22 @@
     width: 20rem;
 }
 
+.formulario fieldset .campo input {
+    width: auto;
+}
+
 .InicioSesion {
     &.formulario {
         width: 65%;
+        margin: 2rem auto;
     }
     fieldset {
-        width: 40rem;
+        min-width: 20rem;
+    }
+    .InicioSesion-pasword {
+        min-width: 20rem
+    }
+    .InicioSesion-email {
+        min-width: 20rem
     }
 }

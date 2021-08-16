@@ -150,8 +150,9 @@ class PropiedadController{
                 }        
             }
         }
-        
+        $inicio=false;
         $router->render("/propiedades/actualizar",[
+            'inicio'=>$inicio,
             'propiedad'=>$propiedad,
             "errores"=>$errores,
             "insercionCorrecta"=>$insercionCorrecta,

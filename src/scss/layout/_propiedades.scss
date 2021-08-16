@@ -5,8 +5,12 @@
         margin: 0;
         margin-bottom: 1.5rem;
     }
-    .propiedad {
-        max-width: 28rem;
+    //max-width: 65rem;
+    margin: 0 auto;
+    @include desktop {
+        .propiedad {
+            max-width: 28rem;
+        }
     }
 }
 
@@ -14,7 +18,10 @@
     .contenedor-propiedades {
         .propiedad {
             .comtenedor-imagen-propiedad {
-                max-width: 27.5rem;
+                max-width: 55rem;
+                @include desktop {
+                    max-width: 27.5rem;
+                }
                 min-height: 12.5rem;
                 img {
                     min-height: 20rem;
@@ -26,7 +33,12 @@
 
 .contenedor-propiedades {
     .propiedad {
-        margin-bottom: 2rem;
+        max-width: 55rem;
+        @include desktop {
+            max-width: 28rem;
+        }
+        margin: 0 auto;
+        margin-bottom: 3rem;
         @include desktop {
             margin-bottom: 0;
         }
@@ -49,6 +61,7 @@
         .precio {
             color: $verde;
             font-weight: $bold;
+            margin-left: 2rem;
         }
         h3 {
             display: block;
@@ -61,8 +74,9 @@
             display: grid;
             place-items: center;
             p {
-                min-height: 325px;
+                min-height: 20rem;
                 margin-top: 0.5rem;
+                margin: 0.5rem 1rem 0 1rem;
             }
         }
     }

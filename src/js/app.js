@@ -82,14 +82,14 @@ function mostrarMetodosContacto(e) {
         contactoDiv.innerHTML = `
         <div class="campo">
             <label for="telefono">Telefono:</label>
-            <input type="tel" placeholder="Telefono" name="contacto[telefono]"required>
+            <input data-cy="telefono" type="tel" placeholder="Telefono" name="contacto[telefono]"required>
         </div>
         `;
     } else {
         contactoDiv.innerHTML = `
         <div class="campo">
             <label for="email">E-mail:</label>
-            <input type="email" placeholder="E-mail" name="contacto[email]"required>
+            <input type="email" placeholder="E-mail" name="contacto[email]"required data-cy="email">
         </div>
         `;
     }

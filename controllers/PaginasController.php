@@ -41,7 +41,7 @@ class PaginasController{
     public static function contacto(Router $router){
         $inicio=false;
         $mailValidate=true;
-        $sucess=false;
+        $sucess=sizeof($_GET)!=1? false : $_GET['sucess'];
 
         if($_SERVER['REQUEST_METHOD']==='POST'){
 
@@ -94,11 +94,11 @@ class PaginasController{
                 $mail->AltBody = 'esto texto alternativo';
 
                 if($mail->send()){
-                    echo "se envio enviar";
-                    $sucess=true;
-                    header('location:/contactanos');
+                    //echo "se envio enviar";
+                    header('location:/contactanos?sucess=true');
+
                 }else{
-                    echo "error al enviar";
+                    //echo "error al enviar";
                 }
             }
         }
